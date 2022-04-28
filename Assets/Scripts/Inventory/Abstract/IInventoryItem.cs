@@ -5,10 +5,9 @@ using UnityEngine;
 
 public interface IInventoryItem 
 {
-    bool IsEquipped { get; set; }
+    IInventoryItemInfo Info { get; }
+    IInventoryItemState State { get; }
     Type ItemType { get; }
-    int MaxItemsInInventorySlot { get; }
-    int Amount { get; set; }
 
     IInventoryItem Clone();
 }

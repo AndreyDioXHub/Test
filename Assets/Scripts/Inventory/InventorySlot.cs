@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InventorySlot : IInventorySlot
 {
-    public bool IsFull => Amount == Capacity;
+    public bool IsFull => !IsEmpty && Amount == Capacity;
 
     public bool IsEmpty => Item == null;
 
@@ -13,7 +13,7 @@ public class InventorySlot : IInventorySlot
 
     public Type ItemType => Item.ItemType;
 
-    public int Amount => IsEmpty ? 0 : Item.Amount;
+    public int Amount => IsEmpty ? 0 : Item.State.Amount;
 
     public int Capacity { get; private set; }
 
@@ -24,7 +24,7 @@ public class InventorySlot : IInventorySlot
             return;
         }
 
-        Item.Amount = 0;
+        Item.State.Amount = 0;
         Item = null;
     }
 
@@ -36,6 +36,6 @@ public class InventorySlot : IInventorySlot
         }
 
         this.Item = item;
-        this.Capacity = item.MaxItemsInInventorySlot;
+        this.Capacity = item.Info.MaxItemsInInventorySlot;
     }
 }
